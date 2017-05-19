@@ -1,4 +1,6 @@
 #include <stdio.h>
+#define MAX_PATH 260
+
 int slen(const char *str) { //размер строки
     int size = 0; 
     while (str[size] != '\0') 
@@ -68,17 +70,26 @@ int input_delim(int delim){
 	return delim;
 }
 
-void input(char* text){
-	printf("Input string\n");
-	gets(text);
+char *input(){
+	char *path = malloc(sizeof(char) * MAX_PATH);
+	if(path == NULL)
+	{
+	    return NULL;
+	}
+	fgets(path,MAX_PATH,stdin);
+	path[slen(path)] = '\0';
+	return path;
 }
 
 int check(char *text){
-	int len = slen(text);
+	int len =  0;
+	len = slen(text);
 	int i;
-	for(i = 0; i < len; ++i){
-		if(text[i] == '\\' );
-			return -1;		
+	for(i = 0; text[i] != '\0'; ++i){
+	    if(text[i] == '/')
+	    {
+	    return -1;
+	    }
 	}
 	return 0;
 }
